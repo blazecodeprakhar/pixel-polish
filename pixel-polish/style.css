@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --bg-black: #000000;
+    --slate-900: #0B0E14;
+    --violet-500: #8B5CF6;
+    --cyan-400: #22D3EE;
+    --text-slate: #94A3B8;
+    --glass: rgba(255, 255, 255, 0.03);
+    --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    cursor: default;
+}
+
+body {
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    background-color: var(--bg-black);
+    color: white;
+    margin: 0;
+    overscroll-behavior: none;
+    width: 100vw;
+    height: 100vh;
+}
+
+.oled-dark {
+    background-color: var(--bg-black);
+    color: white;
+}
+
+.glass-card {
+    background: var(--glass);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    border: 1px solid var(--glass-border);
+}
+
+.gradient-bg {
+    background: linear-gradient(135deg, var(--violet-500), var(--cyan-400));
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, var(--violet-500), var(--cyan-400));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Tab Navigation */
+.nav-btn.active {
+    color: var(--violet-500);
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.4s cubic-bezier(0.2, 0, 0, 1) forwards;
+}
+
+#notifyBtn:active, #startTimer:active, .nav-btn:active {
+    transform: scale(0.92);
+}
+
+/* Hide scrollbars but allow scrolling */
+::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+#content {
+    mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Mobile Optimizations */
+@media (max-width: 480px) {
+    #app {
+        width: 100%;
+        max-width: none;
+    }
+}
+
+/* Journal Entry Cards */
+.entry-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1.5rem;
+    border-radius: 2rem;
+    transition: all 0.3s ease;
+}
+
+.entry-card:hover {
+    border-color: rgba(139, 92, 246, 0.2);
+}
+
+/* Custom PWA Touch targets */
+button, a {
+    min-width: 44px;
+    min-height: 44px;
+}

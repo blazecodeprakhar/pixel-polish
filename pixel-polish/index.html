@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>ZenFocus | Premium Experience</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" href="favicon.svg">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="oled-dark overflow-hidden">
+    <div id="app" class="flex flex-col h-screen max-w-md mx-auto relative bg-black shadow-2xl">
+        <!-- Top Status Bar Mock (for app feel) -->
+        <header class="p-6 pt-12 flex justify-between items-center z-20">
+            <h1
+                class="text-3xl font-bold tracking-tight bg-gradient-to-r from-violet-500 to-cyan-400 bg-clip-text text-transparent">
+                ZenFocus</h1>
+            <button id="notifyBtn"
+                class="p-2 rounded-full glass-card text-violet-400 active:scale-95 transition-transform">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+            </button>
+        </header>
+
+        <!-- Main Content Area (Scrollable) -->
+        <main id="content" class="flex-1 overflow-y-auto px-6 pb-24 space-y-6">
+            <!-- Focus Section -->
+            <section id="focusView" class="view space-y-4">
+                <div
+                    class="glass-card p-8 text-center space-y-4 rounded-3xl border border-white/5 relative overflow-hidden group">
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-violet-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
+                    </div>
+                    <p class="text-sm font-medium text-slate-500 uppercase tracking-[0.2em]">Current Session</p>
+                    <div class="text-7xl font-light tracking-tighter tabular-nums" id="timer">25:00</div>
+                    <div class="flex gap-4 justify-center py-4">
+                        <button id="startTimer"
+                            class="px-8 py-3 bg-violet-600/20 text-violet-400 rounded-full border border-violet-500/30 hover:bg-violet-600/30 transition-all font-medium active:scale-90">Start
+                            Focus</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Journal Section -->
+            <section id="journalView" class="view hidden space-y-6 animate-fade-in">
+                <div class="flex justify-between items-center">
+                    <h2 class="text-xl font-semibold">Today's Reflection</h2>
+                    <span id="dateText" class="text-xs text-slate-500">March 2, 2026</span>
+                </div>
+                <textarea id="journalInput"
+                    class="w-full h-48 bg-slate-900/40 p-5 rounded-3xl border border-white/10 text-slate-200 focus:outline-none focus:border-violet-500/50 resize-none glass-card"
+                    placeholder="How was your day?"></textarea>
+                <div class="flex justify-end">
+                    <button id="saveJournal"
+                        class="px-6 py-2 rounded-full bg-violet-600 text-white font-medium shadow-lg shadow-violet-500/20 active:scale-95 transition-transform">Save
+                        Entry</button>
+                </div>
+                <div id="journalFeed" class="space-y-4 pt-4">
+                    <!-- Entries go here -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation Interface -->
+        <nav
+            class="absolute bottom-0 inset-x-0 h-20 glass-card rounded-t-[2.5rem] border-t border-white/10 flex items-center justify-around px-8 z-30 pb-4">
+            <button class="nav-btn active group flex flex-col items-center gap-1" data-view="focusView">
+                <div class="p-2 rounded-2xl group-[.active]:bg-violet-500/10 transition-colors">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round"
+                        class="group-[.active]:text-violet-500 text-slate-500">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                </div>
+                <span
+                    class="text-[10px] uppercase tracking-widest font-bold group-[.active]:text-violet-500 text-slate-600">Focus</span>
+            </button>
+            <button class="nav-btn group flex flex-col items-center gap-1" data-view="journalView">
+                <div class="p-2 rounded-2xl group-[.active]:bg-violet-500/10 transition-colors">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round"
+                        class="group-[.active]:text-violet-500 text-slate-500">
+                        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                    </svg>
+                </div>
+                <span
+                    class="text-[10px] uppercase tracking-widest font-bold group-[.active]:text-violet-500 text-slate-600">Journal</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- PWA Install Modal (Simulated Experience) -->
+    <div id="installToast"
+        class="fixed bottom-24 inset-x-6 glass-card p-4 rounded-3xl border border-white/10 translate-y-40 transition-transform duration-500 z-50 flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl gradient-bg p-2 shadow-lg">
+            <img src="favicon.svg" class="w-full h-full invert opacity-90">
+        </div>
+        <div class="flex-1">
+            <h4 class="text-sm font-bold">ZenFocus Premium</h4>
+            <p class="text-[10px] text-slate-400">Install for native experience</p>
+        </div>
+        <button id="installConfirm"
+            class="px-4 py-2 rounded-full bg-white text-black text-xs font-bold">Install</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
